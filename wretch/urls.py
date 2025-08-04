@@ -19,7 +19,6 @@ from django.urls import path
 # from django.http import HttpResponse
 from .views import about, home
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('about/', about),
