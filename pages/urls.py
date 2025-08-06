@@ -1,9 +1,11 @@
-from .views import about, home, contact
-# 等同於 from . import views 
+# from .views import about, home, contact
+from . import views 
 from django.urls import path
 
+app_name = "pages"
+
 urlpatterns = [
-    path("about/", about),
-    path("contact/", contact),
-    path("", home),
+    path("about/", views.about, name="about"),
+    path("contact/", views.contact, name="contact"),
+    path("", views.home, name="home"),
 ]

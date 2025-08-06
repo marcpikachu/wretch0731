@@ -1,10 +1,5 @@
-<h1>home</h1>
+{% extends "layouts/default.html" %}
 
-<!-- {{ lucky }} -->
-
-{% for num in lucky %}
-    <div>{{ num }}</div>
-{% endfor %}
-
-<!-- SSR = Server Side Render -->
- <!-- SPA = Single Page Application -->
+{% block content %}
+<h1>首頁</h1>
+{% endblock %}
