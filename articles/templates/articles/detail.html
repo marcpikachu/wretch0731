@@ -1,0 +1,8 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<h1 class="text-3xl">Hello, {{ article.title }}</h1>
+<article>
+  {{ article.content|linebreaks }}
+</article>
+{% endblock %}

@@ -7,7 +7,12 @@
 
 {% for article in articles %}
 <article class="mb-8">
-  <h2>{{ article.title }}</h2>
+  <h2>
+    <a class="bg-red-300" href="{% url 'articles:detail' article.id %}">
+      {{ article.title }}
+    </a>
+  </h2>
+
   <p>
     {{ article.content|truncatewords:50 }}
   </p>
