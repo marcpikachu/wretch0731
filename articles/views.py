@@ -29,7 +29,6 @@ def detail(request, id):
             article.delete()
             return redirect("articles:index")
 
-        
     else:
 
         return render(request, "articles/detail.html", {"article": article})

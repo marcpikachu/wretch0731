@@ -1,10 +1,15 @@
 {% extends "layouts/default.html" %}
 
 {% block content %}
-<div>
-    <a href="{% url 'articles:edit' article.id %}" class="btn btn-xs btn-success">編輯</a>
-    <a href="" class="btn btn-xs btn-error">刪除</a>
+<div class="flex gap-2 items-center">
+  <a href="{% url 'articles:edit' article.id %}" class="btn btn-xs btn-success">編輯</a>
+  <form action="{% url 'articles:detail' article.id %}" method="post">
+    <input type="hidden" name="_method" value="delete" />
+    {% csrf_token %}
+    <button class="btn btn-xs btn-error">刪除</form>
+  </form>
 </div>
+
 <h1 class="text-3xl">Hello, {{ article.title }}</h1>
 <article>
   {{ article.content|linebreaks }}
