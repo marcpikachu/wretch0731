@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +8,8 @@
   <title>有名小站</title>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="{% static 'scripts/app.js' %}" defer></script>
+  <link href="{% static 'styles/app.css' %}"  rel="stylesheet" type="text/css" />
 </head>
 <body>
   <nav class="bg-green-200 py-4 px-8">
@@ -18,13 +22,7 @@
   </nav>
 
   <main class="container mx-auto py-8">
-    {% if messages %}
-      {% for m in messages %}
-        <div role="alert" class="alert alert-{{ m.tags }}">
-          <span>{{ m }}</span>
-        </div>
-      {% endfor %}
-    {% endif %}
+    {% include "shared/message.html" %}
 
     {% block content %}{% endblock %}
   </main>

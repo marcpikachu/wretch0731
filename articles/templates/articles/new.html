@@ -5,6 +5,8 @@
 
 <form action="{% url 'articles:index' %}"
       method="post"
+      x-data
+      @submit.prevent="confirm('確認新增文章？') && $el.submit()"
       class="flex flex-col gap-4">
 
   {% csrf_token %}
