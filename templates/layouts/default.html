@@ -18,7 +18,15 @@
   </nav>
 
   <main class="container mx-auto py-8">
-  {% block content %}{% endblock %}
+    {% if messages %}
+      {% for m in messages %}
+        <div role="alert" class="alert alert-{{ m.tags }}">
+          <span>{{ m }}</span>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
   </main>
 
 </body>
