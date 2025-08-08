@@ -4,10 +4,11 @@ from .models import Article
 
 
 def index(request):
-    if request.POST:
-        title = request.POST["title"]
-        content = request.POST["content"]
-        Article.objects.create(title=title, content=content)
+    if  request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        is_published = request.POST.get("is_published") == "on"
+        Article.objects.create(title=title, content=content, is_published=is_published)
 
         messages.success(request, "新增成功")
         return redirect("articles:index")
@@ -25,8 +26,9 @@ def detail(request, id):
 
     if request.POST:
         if request.POST["_method"] == "patch":
-            article.title = request.POST["title"]
-            article.content = request.POST["content"]
+            article.title = request.POST.get("title")
+            article.content = request.POST.get("content")
+            article.is_published = request.POST.get("is_published") == "on"
             article.save()
 
             messages.success(request, "更新成功")
