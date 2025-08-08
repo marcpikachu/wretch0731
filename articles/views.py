@@ -1,25 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from comments.forms import CommentForm
 from .models import Article
 from .forms import ArticleForm
 
 
-
 def index(request):
-    if  request.method == "POST":
+    if request.method == "POST":
         form = ArticleForm(request.POST)
         form.save()
-        # title = request.POST.get("title")
-        # content = request.POST.get("content")
-        # is_published = request.POST.get("is_published") == "on"
-        # Article.objects.create(title=title, content=content, is_published=is_published)
-
 
         messages.success(request, "新增成功")
         return redirect("articles:index")
     else:
         articles = Article.objects.order_by("-id")
-
         return render(request, "articles/index.html", {"articles": articles})
 
 
@@ -35,10 +29,6 @@ def detail(request, id):
         if request.POST["_method"] == "patch":
             form = ArticleForm(request.POST, instance=article)
             form.save()
-            # article.title = request.POST.get("title")
-            # article.content = request.POST.get("content")
-            # article.is_published = request.POST.get("is_published") == "on"
-            # article.save()
 
             messages.success(request, "更新成功")
             return redirect("articles:detail", article.id)
@@ -49,10 +39,25 @@ def detail(request, id):
             messages.warning(request, "刪除成功")
             return redirect("articles:index")
     else:
-        return render(request, "articles/detail.html", {"article": article})
+        comment_form = CommentForm()
+        comments = article.comment_set.filter(deleted_at=None).order_by("-id")
+
+        return render(
+            request,
+            "articles/detail.html",
+            {
+                "article": article,
+                "comment_form": comment_form,
+                "comments": comments,
+            },
+        )
 
 
 def edit(request, id):
     article = get_object_or_404(Article, pk=id)
     form = ArticleForm(instance=article)
-    return render(request, "articles/edit.html", {"article": article, "form": form})
+    return render(
+        request,
+        "articles/edit.html",
+        {"article": article, "form": form},
+    )

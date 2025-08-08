@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('articles', '0002_article_is_published'),
-        ('comment', '0001_initial'),
+        ('comments', '0001_initial'),
     ]
 
     operations = [
