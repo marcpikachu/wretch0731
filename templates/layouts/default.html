@@ -9,7 +9,7 @@
   <script src="{% static 'scripts/app.js' %}" defer></script>
   <link href="{% static 'styles/app.css' %}"  rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
   <nav class="bg-black-300 py-4 px-8">
     <ul class="flex gap-4">
       <li><a href="{% url 'pages:home' %}">首頁</a></li>
