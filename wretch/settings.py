@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     "pages",
     "articles",
     "comments",
+    "users",
+    "sessions.apps.SessionConfig",
+
 ]
 
 MIDDLEWARE = [

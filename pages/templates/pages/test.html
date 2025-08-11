@@ -2,15 +2,17 @@
 
 {% block content %}
 <h1>TEST</h1>
-<button class="btn btn-success" 
-        hx-post="/about/"
-        hx-swap="outerHTML" 
-        hx-target="#result" >
-    click
+<button class="btn btn-success"
+        hx-delete="/about/"
+        hx-swap="outerHTML"
+        hx-target="#result"
+        >
+  click
 </button>
+
+{% now "jS F Y H:i:s" %}
 
 <div id="result">
   RESULT
 </div>
-
 {% endblock %}
