@@ -13,7 +13,7 @@
   </form>
 </div>
 
-{% include "ui/like_button.html" with article=article user=user only %}
+{% include "ui/like_button.html" with article=article liked=liked only %}
 
 <h1 class="text-3xl">Hello, {{ article.title }}</h1>
 <article>

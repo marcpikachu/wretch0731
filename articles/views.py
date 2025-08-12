@@ -60,6 +60,7 @@ def detail(request, id):
                 "article": article,
                 "comment_form": comment_form,
                 "comments": comments,
+                "liked": article.likers.contains(request.user),
             },
         )
 
@@ -78,9 +79,20 @@ def edit(request, id):
 @require_POST
 @login_required
 def like(request, id):
-    # article = get_object_or_404(Article, pk=id)
-    # if article.favoritearticle_set.contains(request.user):
-    #     # 移除
-    # else:
-    #     # 新增
-    return HttpResponse("123")
+    article = get_object_or_404(Article, pk=id)
+    liked = False
+
+    if article.likers.contains(request.user):
+        article.likers.remove(request.user)
+    else:
+        article.likers.add(request.user)
+        liked = True
+
+    return render(
+        request,
+        "ui/like_button.html",
+        {
+            "article": article,
+            "liked": liked,
+        },
+    )
