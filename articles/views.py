@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from comments.forms import CommentForm
 from .models import Article
 from .forms import ArticleForm
 
 
 def index(request):
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_authenticated:
         form = ArticleForm(request.POST)
-        form.save()
+        article = form.save(commit=False)
+        article.user = request.user
+        article.save()
 
         messages.success(request, "新增成功")
         return redirect("articles:index")
@@ -17,6 +20,7 @@ def index(request):
         return render(request, "articles/index.html", {"articles": articles})
 
 
+@login_required
 def new(request):
     form = ArticleForm()
     return render(request, "articles/new.html", {"form": form})
@@ -25,7 +29,7 @@ def new(request):
 def detail(request, id):
     article = get_object_or_404(Article, pk=id)
 
-    if request.POST:
+    if request.POST and request.user.is_authenticated:
         if request.POST["_method"] == "patch":
             form = ArticleForm(request.POST, instance=article)
             form.save()
@@ -53,6 +57,7 @@ def detail(request, id):
         )
 
 
+@login_required
 def edit(request, id):
     article = get_object_or_404(Article, pk=id)
     form = ArticleForm(instance=article)

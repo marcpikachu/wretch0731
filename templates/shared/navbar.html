@@ -1,0 +1,21 @@
+<nav id="navbar-main" class="bg-green-200 py-4 px-8 flex justify-between">
+  <ul class="flex gap-4">
+    <li><a href="{% url 'pages:home' %}">首頁</a></li>
+    <li><a href="{% url 'pages:contact' %}">聯絡</a></li>
+    <li><a href="{% url 'pages:about' %}">關於</a></li>
+    <li><a href="{% url 'articles:index' %}">文章</a></li>
+  </ul>
+  <ul class="flex gap-4">
+    {% if user.is_authenticated %}
+      <li>{{ user.username }}</li>
+      <li><a href="#"
+             hx-target="#navbar-main"
+             hx-swap="outerHTML"
+             hx-delete="{% url 'sessions:logout' %}">登出</a>
+      </li>
+    {% else %}
+      <li><a href="{% url 'sessions:new' %}">登入</a></li>
+      <li><a href="{% url 'users:new' %}">註冊</a></li>
+    {% endif %}
+  </ul>
+</nav>
