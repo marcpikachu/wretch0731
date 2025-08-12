@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from comments.forms import CommentForm
 from .models import Article
 from .forms import ArticleForm
+from django.http import HttpResponse
 
 
 def index(request):
@@ -45,7 +47,11 @@ def detail(request, id):
     else:
         article = get_object_or_404(Article, pk=id)
         comment_form = CommentForm()
-        comments = article.comment_set.filter(deleted_at=None).order_by("-id")
+        comments = (
+            article.comment_set.select_related("user")
+            .filter(deleted_at=None)
+            .order_by("-id")
+        )
 
         return render(
             request,
@@ -67,3 +73,14 @@ def edit(request, id):
         "articles/edit.html",
         {"article": article, "form": form},
     )
+
+
+@require_POST
+@login_required
+def like(request, id):
+    # article = get_object_or_404(Article, pk=id)
+    # if article.favoritearticle_set.contains(request.user):
+    #     # 移除
+    # else:
+    #     # 新增
+    return HttpResponse("123")

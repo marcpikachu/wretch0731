@@ -16,3 +16,6 @@ class Comment(models.Model):
     def delete(self):
         self.deleted_at = datetime.now()
         self.save()
+
+
+   

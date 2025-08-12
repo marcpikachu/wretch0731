@@ -2,6 +2,10 @@
   {{ comment.content }}
   {{ comment.created_at }}
 
+  <span class="bg-green-200">
+  {{ comment.user.username }}
+  </span>
+
   {% if comment.user == user %}
   <div>
     <button hx-delete="{% url 'comments:delete' comment.id %}"

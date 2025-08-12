@@ -13,6 +13,8 @@
   </form>
 </div>
 
+{% include "ui/like_button.html" with article=article user=user only %}
+
 <h1 class="text-3xl">Hello, {{ article.title }}</h1>
 <article>
   {{ article.content|linebreaks }}
@@ -24,12 +26,14 @@
       hx-target="#comment-section"
       hx-swap="afterbegin"
       hx-on::after-request="if(event.detail.successful) this.reset()"
+      x-data
       >
   <div class="flex flex-col">
     {{ comment_form.content.label_tag }}
     {{ comment_form.content }}
   </div>
-  <button class="btn btn-primary btn-sm">新增</button>
+  <button :disabled="{{ user.is_authenticated|yesno:"false,true" }}" class="btn btn-primary btn-sm">新增</button>
+
 </form>
 
 <ul id="comment-section">
