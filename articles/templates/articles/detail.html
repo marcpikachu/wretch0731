@@ -21,9 +21,10 @@
 <h3>留言區</h3>
 
 <form hx-post="{% url 'articles:create_comment' article.id %}"
-      hx-target="#comments-section"
+      hx-target="#comment-section"
       hx-swap="afterbegin"
-    >
+      hx-on::after-request="if(event.detail.successful) this.reset()"
+      >
   <div class="flex flex-col">
     {{ comment_form.content.label_tag }}
     {{ comment_form.content }}
@@ -31,10 +32,10 @@
   <button class="btn btn-primary btn-sm">新增</button>
 </form>
 
-<ul id="comments-section" >
-{% for comment in comments %}
-  {% include "comments/comment.html" with comment=comment %}
-{% endfor %}
+<ul id="comment-section">
+  {% for comment in comments %}
+    {% include "comments/comment.html" with comment=comment user=user only %}
+  {% endfor %}
 </ul>
 
 {% endblock %}

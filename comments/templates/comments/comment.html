@@ -1,13 +1,16 @@
-
 <li class="py-1" id="comment-{{ comment.id }}">
-    {{ comment.content }}
-    {{ comment.created_at }}
-    <div>
-      <button hx-delete="{% url 'comments:delete' comment.id %}"
-              hx-target="#comment-{{ comment.id }}"
-              hx-swap="outerHTML"
-              class="btn btn-error btn-xs">
-          刪除
-      </button>
-    </div>
-  </li>
+  {{ comment.content }}
+  {{ comment.created_at }}
+
+  {% if comment.user == user %}
+  <div>
+    <button hx-delete="{% url 'comments:delete' comment.id %}"
+            hx-target="#comment-{{ comment.id }}"
+            hx-swap="outerHTML"
+            class="btn btn-error btn-xs">
+        刪除
+    </button>
+  </div>
+  {% endif %}
+</li>
+{{ comments }}
