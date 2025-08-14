@@ -1,5 +1,5 @@
 [project]
-name = "wretch"
+name = "wretch-blog"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -8,4 +8,5 @@ dependencies = [
     "braintree>=4.38.0",
     "django>=5.2.4",
     "django-debug-toolbar>=6.0.0",
+    "python-dotenv>=1.1.1",
 ]

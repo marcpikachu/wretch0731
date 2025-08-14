@@ -1,21 +1,32 @@
-import dropin from "braintree-web-drop-in";
+import dropin from "braintree-web-drop-in"
 
 const BrainTreePaymentForm = () => ({
   instance: null,
   ableToSubmit: false,
+  nonce: "",
 
   async init() {
-    const token = this.$el.dataset.token;
+    const token = this.$el.dataset.token
 
     this.instance = await dropin.create({
       container: this.$refs.dropin,
       authorization: token,
-    });
-    this.ableToSubmit = true;
+    })
+    this.ableToSubmit = true
   },
-  onSubmit() {
-    console.log(this.instance);
-  },
-});
 
-export { BrainTreePaymentForm };
+  async onSubmit() {
+    this.ableToSubmit = false
+
+    const { nonce } = await this.instance.requestPaymentMethod()
+    if (nonce) {
+      this.nonce = nonce
+
+      this.$nextTick(() => {
+        this.$el.submit()
+      })
+    }
+  },
+})
+
+export { BrainTreePaymentForm }
