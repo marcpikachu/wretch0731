@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import braintree
 
 
 def new(request):
@@ -7,7 +8,25 @@ def new(request):
     if plan.lower() not in AVAILABLE_PLANS:
         plan = "a"
 
-    return render(request, "payments/new.html", {"plan": plan})
+    # token
+    gateway = braintree.BraintreeGateway(
+        braintree.Configuration(
+            environment=braintree.Environment.Sandbox,
+            merchant_id="",
+            public_key="",
+            private_key="",
+        )
+    )
+    token = gateway.client_token.generate()
+
+    return render(
+        request,
+        "payments/new.html",
+        {
+            "plan": plan,
+            "token": token,
+        },
+    )
 
 
 def index(request):

@@ -2,7 +2,15 @@
 
 {% block content %}
 
-
 <h1>付款：方案 {{ plan|upper }}</h1>
-<div x-data="braintree_payment_form" id="payment-container"></div>
+<form action="{% url 'payments:index' %}"
+      method="post"
+      x-data="braintree_payment_form"
+      data-token="{{ token }}"
+      @submit.prevent="onSubmit"
+      >
+  <div x-ref="dropin"></div>
+
+  <button :disabled="!ableToSubmit" class="btn btn-success">付款</button>
+</form>
 {% endblock %}
