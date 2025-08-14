@@ -1,14 +1,22 @@
 from django.shortcuts import render
 
+
 def home(request):
-    lucky_nums = [1, 2, 3, 16, 29]
-    return render(request, "pages/home.html", {"lucky": lucky_nums})
+    lottery_numbers = [1, 2, 4, 8, 19]
+    return render(request, "pages/home.html", {"lucky": lottery_numbers})
+
 
 def about(request):
     return render(request, "pages/about.html")
 
+
 def contact(request):
     return render(request, "pages/contact.html")
 
+
 def test(request):
     return render(request, "pages/test.html")
+
+
+def pricing(request):
+    return render(request, "pages/pricing.html")

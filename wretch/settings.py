@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "comments",
     "users",
     "sessions.apps.SessionConfig",
+    "payments"
 ]
 
 LOGIN_URL = "/sessions/new/"

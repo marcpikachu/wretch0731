@@ -1,0 +1,10 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+<h1>方案</h1>
+<ul>
+  <li><a href="{% url 'payments:new' %}?plan=a">方案 A 10 元</a></li>
+  <li><a href="{% url 'payments:new' %}?plan=b">方案 B 50 元</a></li>
+  <li><a href="{% url 'payments:new' %}?plan=c">方案 C 100 元</a></li>
+</ul>
+{% endblock %}

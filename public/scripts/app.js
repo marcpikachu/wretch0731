@@ -6915,7 +6915,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }();
   var htmx_esm_default = htmx2;
 
+  // src/scripts/braintree.js
+  var BrainTreePayment = () => ({
+    init: function() {
+      console.log("hello");
+    }
+  });
+
   // src/scripts/app.js
   window.Alpine = module_default;
+  module_default.data("braintree_payment_form", BrainTreePayment);
   module_default.start();
 })();
